@@ -1,0 +1,21 @@
+{
+  "name": "morocco-coco-travel",
+  "version": "1.0.0",
+  "description": "Morocco Coco Travel - Private tours, cultural experiences, and transport services in Casablanca",
+  "scripts": {
+    "dev": "npx serve test-project -l 3000",
+    "start": "npx serve test-project -l 3000",
+    "build": "echo 'Static site - no build required'"
+  },
+  "keywords": [
+    "morocco",
+    "travel",
+    "tours",
+    "casablanca"
+  ],
+  "author": "Builddle Maroc",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}
