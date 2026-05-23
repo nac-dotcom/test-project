@@ -5,6 +5,19 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
 const themeToggle = document.querySelector("[data-theme-toggle]");
 
+// Performance: Debounce helper for scroll and resize events
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
 function setTheme(theme) {
   root.dataset.theme = theme;
   try {
@@ -547,12 +560,10 @@ if (motionOk && pointerFine) {
 const scrollIndicator = document.querySelector(".scroll-indicator");
 if (scrollIndicator) {
   const onScroll = () => {
-    const hidden = window.scrollY > 120;
-    scrollIndicator.style.opacity = hidden ? "0" : "1";
-    scrollIndicator.style.pointerEvents = hidden ? "none" : "auto";
+    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    scrollIndicator.style.opacity = scrollPercent > 95 ? "0" : "1";
   };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  window.addEventListener("scroll", debounce(onScroll, 100), { passive: true });
 }
 
 if (motionOk) {
